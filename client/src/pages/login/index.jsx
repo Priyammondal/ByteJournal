@@ -15,7 +15,7 @@ const index = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  axios.defaults.withCredentials = true;
   useEffect(() => {
     dispatch(setLoginState(false));
     localStorage.removeItem("userId");
