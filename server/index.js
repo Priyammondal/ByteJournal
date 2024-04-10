@@ -17,7 +17,9 @@ app.use(
 );
 app.use(express.json());
 
-const uri = process.env.MONGODB_URI;
+// const uri = process.env.MONGODB_URI;
+const uri =
+  "mongodb+srv://priyammondal096:YbGJrfzVrgi6LHUN@bytejournalcluster.t3wfyj3.mongodb.net/?retryWrites=true&w=majority&appName=ByteJournalCluster";
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
