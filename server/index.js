@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 app.use(
   cors({
-    origin: ["https://byte-journal.vercel.app/"],
+    origin: ["bytejournal.netlify.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
