@@ -21,7 +21,7 @@ const ArticleDetails = () => {
   const getArticleDetails = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5050/getArticle/${params.id}`,
+        `https://byte-journal.vercel.app/getArticle/${params.id}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,
@@ -40,7 +40,7 @@ const ArticleDetails = () => {
   const handleDelete = async (id) => {
     try {
       const delteResponse = await axios.delete(
-        `http://localhost:5050/deleteArticle/${id}`,
+        `https://byte-journal.vercel.app/deleteArticle/${id}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,

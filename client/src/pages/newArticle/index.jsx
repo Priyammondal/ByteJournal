@@ -16,7 +16,7 @@ const NewArticle = () => {
     try {
       if (title && content) {
         const response = await axios.post(
-          "http://localhost:5050/createArtilcle",
+          "https://byte-journal.vercel.app/createArtilcle",
           { title: title, content: content, username: username },
           {
             headers: {

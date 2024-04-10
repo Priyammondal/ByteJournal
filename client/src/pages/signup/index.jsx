@@ -15,7 +15,7 @@ const index = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5050/registration", {
+    const response = await axios.post("https://byte-journal.vercel.app/registration", {
       name: `${firstName} ${lastName}`,
       username,
       email,

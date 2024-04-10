@@ -19,7 +19,7 @@ const EditMyArticles = () => {
   const getArticleDetails = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:5050/getArticle/${params.id}`,
+        `https://byte-journal.vercel.app/getArticle/${params.id}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,
@@ -40,7 +40,7 @@ const EditMyArticles = () => {
     try {
       if (title && content) {
         const response = await axios.put(
-          `http://localhost:5050/editArticle/${params.id}`,
+          `https://byte-journal.vercel.app/editArticle/${params.id}`,
           { title: title, content: content },
           {
             headers: {

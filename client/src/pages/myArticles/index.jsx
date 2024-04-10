@@ -19,7 +19,7 @@ const MyArtilces = () => {
   const getMyArticles = async () => {
     try {
       const articleResponse = await axios.get(
-        `http://localhost:5050/getArticles/${username}`,
+        `https://byte-journal.vercel.app/getArticles/${username}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,

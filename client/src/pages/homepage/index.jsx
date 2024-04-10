@@ -17,7 +17,7 @@ const Home = () => {
 
   const getAllArticles = async () => {
     try {
-      const response = await axios.get(`http://localhost:5050/getArticles`);
+      const response = await axios.get(`https://byte-journal.vercel.app/getArticles`);
       if (response.status === 200) {
         const data = await response.data;
         setAllData(data);

@@ -35,7 +35,7 @@ const index = () => {
   const checkLoginStatus = async () => {
     const token = localStorage.getItem("token");
     const tokenType = localStorage.getItem("tokenType");
-    const loginStatus = await axios.get(`http://localhost:5050/loginstatus`, {
+    const loginStatus = await axios.get(`https://byte-journal.vercel.app/loginstatus`, {
       headers: {
         Authorization: `${tokenType} ${token}`,
       },

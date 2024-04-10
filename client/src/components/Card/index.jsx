@@ -18,7 +18,7 @@ const index = ({ user, article, edit, dlt }) => {
   const handleDelete = async (id) => {
     try {
       const delteResponse = await axios.delete(
-        `http://localhost:5050/deleteArticle/${id}`,
+        `https://byte-journal.vercel.app/deleteArticle/${id}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,
@@ -41,7 +41,7 @@ const index = ({ user, article, edit, dlt }) => {
     }
     try {
       const result = await axios.post(
-        "http://localhost:5050/articles/like-dislike",
+        "https://byte-journal.vercel.app/articles/like-dislike",
         {
           articleId,
           userId,

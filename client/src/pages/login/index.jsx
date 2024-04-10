@@ -27,7 +27,7 @@ const index = () => {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5050/login", {
+    const response = await axios.post("https://byte-journal.vercel.app/login", {
       email,
       password,
     });
