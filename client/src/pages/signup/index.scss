@@ -1,0 +1,83 @@
+.signup {
+  max-width: 1366px !important;
+  .image-section {
+    display: grid;
+    place-items: center;
+    img {
+      height: 90%;
+      width: 90%;
+      object-fit: contain;
+      animation: updown 0.7s infinite ease-in alternate;
+    }
+  }
+  .form-section {
+    background-color: #392467;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: #fff;
+      .logo-img {
+        height: 40px;
+      }
+    }
+    .registration-form {
+      width: 80%;
+      border: 1px solid #5d3587;
+      border-radius: 10px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .form-control {
+        background-color: #fff;
+        border: none;
+        outline: none;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+      .registration-btn {
+        background-color: #5d3587;
+        color: white;
+        width: 100%;
+        &:hover {
+          background-color: #663b94;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .image-section {
+      display: none;
+    }
+    .form-section {
+      .registration-form {
+        width: 80%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .image-section {
+      display: none;
+    }
+    .form-section {
+      .registration-form {
+        width: 95%;
+      }
+    }
+  }
+}
+
+@keyframes updown {
+  100% {
+    transform: translateY(-5px);
+  }
+}

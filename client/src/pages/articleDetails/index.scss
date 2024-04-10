@@ -1,0 +1,9 @@
+.article-details {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  .createArticleMain {
+    height: 90%;
+    background-color: #ccc;
+  }
+}
