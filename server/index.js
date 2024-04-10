@@ -8,7 +8,13 @@ const jwtSecret = "secret@jwt#1290@kuchbhi&chalega$56733MAN";
 const dotenv = require("dotenv");
 
 dotenv.config();
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://byte-journal.vercel.app/"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
@@ -232,11 +238,9 @@ app.post("/articles/like-dislike", async (req, res) => {
 
     // Check if the action is valid
     if (action !== "like" && action !== "dislike") {
-      return res
-        .status(400)
-        .json({
-          message: "Invalid action. Please specify 'like' or 'dislike'.",
-        });
+      return res.status(400).json({
+        message: "Invalid action. Please specify 'like' or 'dislike'.",
+      });
     }
 
     // Check if the user already liked or disliked the article
@@ -284,13 +288,11 @@ app.post("/articles/like-dislike", async (req, res) => {
     // Save the updated article
     await article.save();
 
-    return res
-      .status(200)
-      .json({
-        message: "Action performed successfully",
-        likeCount: article.likeCount,
-        dislikeCount: article.dislikeCount,
-      });
+    return res.status(200).json({
+      message: "Action performed successfully",
+      likeCount: article.likeCount,
+      dislikeCount: article.dislikeCount,
+    });
   } catch (error) {
     console.error("Error performing action on article:", error);
     return res.status(500).json({ message: "Internal server error" });
