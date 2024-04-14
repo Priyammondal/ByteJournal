@@ -8,14 +8,15 @@ import { FaLock } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setLoginState } from "../../redux/reducers";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 
 const index = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  axios.defaults.withCredentials = true;
+  const { login } = api();
+
   useEffect(() => {
     dispatch(setLoginState(false));
     localStorage.removeItem("userId");
@@ -25,29 +26,28 @@ const index = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenType");
   }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("https://byte-journal.vercel.app/login", {
-      email,
-      password,
-    });
-    if (response.status === 200) {
-      localStorage.setItem("userId", response.data.data[0]._id);
-      localStorage.setItem("name", response.data.data[0].name);
-      localStorage.setItem("username", response.data.data[0].username);
-      localStorage.setItem("email", response.data.data[0].email);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("tokenType", response.data.type);
+    const loginResponse = await login({ email, password });
+
+    if (loginResponse.status === 200) {
+      localStorage.setItem("userId", loginResponse.data.data[0]._id);
+      localStorage.setItem("name", loginResponse.data.data[0].name);
+      localStorage.setItem("username", loginResponse.data.data[0].username);
+      localStorage.setItem("email", loginResponse.data.data[0].email);
+      localStorage.setItem("token", loginResponse.data.token);
+      localStorage.setItem("tokenType", loginResponse.data.type);
       navigate("/");
       setEmail("");
       setPassword("");
-    } else {
-      console.log(response);
-      console.log("No user found!");
+    } else if (loginResponse.status === 404) {
+      alert(loginResponse.data.message);
     }
     dispatch(setLoginState(true));
     navigate("/");
   };
+
   return (
     <div className="login vh-100 vw-100 d-flex row p-0 m-0 mx-auto">
       <aside className="image-section col-12 col-lg-6">

@@ -3,7 +3,7 @@ import "./index.scss";
 import registrationImg from "../../assets/registration-login/registration.svg";
 import Logo from "../../assets/logo/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 
 const index = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,16 +12,17 @@ const index = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { registration } = api();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("https://byte-journal.vercel.app/registration", {
+    const registrationResponse = await registration({
       name: `${firstName} ${lastName}`,
       username,
       email,
       password,
     });
-    if (response.status === 200) {
+    if (registrationResponse.status === 200) {
       navigate("/login");
       setFirstName("");
       setLastName("");
@@ -29,9 +30,10 @@ const index = () => {
       setEmail("");
       setPassword("");
     } else {
-      console.log("Registration Error Response--->", response.data.message);
+      alert(response.data.message);
     }
   };
+
   return (
     <div className="signup vh-100 vw-100 d-flex row p-0 m-0 mx-auto">
       <aside className="image-section col-12 col-lg-6">

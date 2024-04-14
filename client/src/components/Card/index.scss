@@ -1,0 +1,13 @@
+.card {
+  width: 90%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}

@@ -4,11 +4,11 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { SlNote } from "react-icons/sl";
 import { CgProfile } from "react-icons/cg";
 import { IoPersonCircle } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginState } from "../../redux/reducers";
-import axios from "axios";
+import api from "../../api";
 
 const index = () => {
   const [profileExpand, setprofileExpand] = useState(false);
@@ -16,6 +16,10 @@ const index = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const globalState = useSelector((state) => state.globalState);
+  const element = document.getElementById("navbarNav");
+  const { checkLoginStatus } = api();
+  const location = useLocation();
+
   useEffect(() => {
     const handleClick = (e) => {
       if (loginRef.current && !loginRef.current.contains(e.target)) {
@@ -29,18 +33,17 @@ const index = () => {
   }, [loginRef]);
 
   useEffect(() => {
-    checkLoginStatus();
+    const pathSegments = location.pathname.split("/");
+    if (pathSegments.length === 3 && !isNaN(parseInt(pathSegments[2]))) {
+      return;
+    } else {
+      fetchLoginStatus();
+    }
   }, []);
 
-  const checkLoginStatus = async () => {
-    const token = localStorage.getItem("token");
-    const tokenType = localStorage.getItem("tokenType");
-    const loginStatus = await axios.get(`https://byte-journal.vercel.app/loginstatus`, {
-      headers: {
-        Authorization: `${tokenType} ${token}`,
-      },
-    });
-    if (loginStatus.status === 200) {
+  const fetchLoginStatus = async () => {
+    const loginStatus = await checkLoginStatus();
+    if (loginStatus && loginStatus.status === 200) {
       dispatch(setLoginState(true));
     }
   };
@@ -58,7 +61,6 @@ const index = () => {
     localStorage.removeItem("tokenType");
     navigate("/");
   };
-  const element = document.getElementById("navbarNav");
 
   return (
     <div className="header bg-light shadow">

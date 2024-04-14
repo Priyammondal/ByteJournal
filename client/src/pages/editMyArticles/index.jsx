@@ -1,60 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../api";
 
 const EditMyArticles = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const username = localStorage.getItem("username");
-  const token = localStorage.getItem("token");
-  const tokenType = localStorage.getItem("tokenType");
   const navigate = useNavigate();
   const params = useParams();
+  const { getArticleById, editArticle } = api();
 
   useEffect(() => {
-    getArticleDetails();
+    fetchArticle();
   }, []);
 
-  const getArticleDetails = async () => {
-    try {
-      const result = await axios.get(
-        `https://byte-journal.vercel.app/getArticle/${params.id}`,
-        {
-          headers: {
-            Authorization: `${tokenType} ${token}`,
-          },
-        }
-      );
-      if (result.status === 200) {
-        setTitle(result.data.article.title);
-        setContent(result.data.article.content);
-      }
-    } catch (err) {
-      console.log("getArticleDetails error: ", err);
+  const fetchArticle = async () => {
+    const artilcleByIdResponse = await getArticleById(params.id);
+    if (artilcleByIdResponse.status === 200) {
+      setTitle(artilcleByIdResponse.data.article.title);
+      setContent(artilcleByIdResponse.data.article.content);
     }
   };
 
   const handleSubmitArticle = async (e) => {
     e.preventDefault();
-    try {
-      if (title && content) {
-        const response = await axios.put(
-          `https://byte-journal.vercel.app/editArticle/${params.id}`,
-          { title: title, content: content },
-          {
-            headers: {
-              Authorization: `${tokenType} ${token}`,
-            },
-          }
-        );
-        if (response.status === 200) {
-          navigate("/myarticles");
-        }
+    if (title && content) {
+      const editArticleResponse = await editArticle(params.id, {
+        title: title,
+        content: content,
+      });
+      if (editArticleResponse.status === 200) {
+        navigate("/myarticles");
       }
-    } catch (error) {
-      console.log("newarticle error->", error);
-      navigate("/login");
     }
   };
 

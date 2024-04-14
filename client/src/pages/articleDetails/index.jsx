@@ -1,58 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import api from "../../api";
 
 const ArticleDetails = () => {
   const [author, setAuthor] = useState({});
   const [article, setArticle] = useState({});
   const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
-  const tokenType = localStorage.getItem("tokenType");
   const navigate = useNavigate();
   const params = useParams();
+  const { getArticleById, deleteArticle, checkLoginStatus } = api();
 
   useEffect(() => {
-    getArticleDetails();
+    checkLoginStatus(params.articlename);
+    fetchArticlesById();
   }, []);
 
-  const getArticleDetails = async () => {
-    try {
-      const result = await axios.get(
-        `https://byte-journal.vercel.app/getArticle/${params.id}`,
-        {
-          headers: {
-            Authorization: `${tokenType} ${token}`,
-          },
-        }
-      );
-      if (result.status === 200) {
-        setArticle(result.data.article);
-        setAuthor(result.data.user);
-      }
-    } catch (err) {
-      console.log("getArticleDetails error: ", err);
+  const fetchArticlesById = async () => {
+    const articleByIdResponse = await getArticleById(params.id);
+    if (articleByIdResponse.status === 200) {
+      setArticle(articleByIdResponse.data.article);
+      setAuthor(articleByIdResponse.data.user);
     }
   };
 
   const handleDelete = async (id) => {
-    try {
-      const delteResponse = await axios.delete(
-        `https://byte-journal.vercel.app/deleteArticle/${id}`,
-        {
-          headers: {
-            Authorization: `${tokenType} ${token}`,
-          },
-        }
-      );
-      if (delteResponse.status === 200) {
-        navigate(-1);
-      }
-    } catch (error) {
-      console.log("deleteArticle error->", error);
-      navigate("/login");
+    const delteResponse = await deleteArticle(id);
+    if (delteResponse.status === 200) {
+      navigate(-1);
     }
   };
 

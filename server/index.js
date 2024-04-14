@@ -15,6 +15,13 @@ app.use(
     credentials: true,
   })
 );
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
@@ -94,17 +101,13 @@ app.post(
     try {
       const newUser = new Users({ name, username, email, password });
       await newUser.save();
-      const data = await Users.find({ email: email });
-      return res.json(data);
+      const data = await Users.find({ email: email }).select("-password");
+      return res.status(200).json(data);
     } catch (err) {
-      console.log(err.message);
-      res.status(500).send("Server Error");
+      return res.status(500).send("Server Error");
     }
   }
 );
-
-// find() return array of objects
-// findOne() return particuler object, it has save() mthod
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -157,17 +160,6 @@ app.get("/getArticles", async (req, res) => {
   }
 });
 
-app.get("/getArticles/:username", authMiddleWare, async (req, res) => {
-  const username = req.params.username;
-  const user = await Users.find({ username: username })
-    .populate("articles")
-    .select("-email -password");
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-  return res.json(user);
-});
-
 app.get("/getArticle/:id", async (req, res) => {
   const articleId = req.params.id;
   const article = await Articles.findById(articleId).exec();
@@ -181,6 +173,17 @@ app.get("/getArticle/:id", async (req, res) => {
     return res.status(404).json({ message: "User not found for this article" });
   }
   return res.json({ article, user });
+});
+
+app.get("/getArticles/:username", authMiddleWare, async (req, res) => {
+  const username = req.params.username;
+  const user = await Users.find({ username: username })
+    .populate("articles")
+    .select("-email -password");
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  return res.json(user);
 });
 
 app.delete("/deleteArticle/:articleId", authMiddleWare, async (req, res) => {
@@ -227,7 +230,7 @@ app.put("/editArticle/:articleId", authMiddleWare, async (req, res) => {
   }
 });
 
-app.post("/articles/like-dislike", async (req, res) => {
+app.post("/articles/like-dislike", authMiddleWare, async (req, res) => {
   try {
     const { articleId, userId, action } = req.body;
 
