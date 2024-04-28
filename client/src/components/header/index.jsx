@@ -64,7 +64,7 @@ const index = () => {
 
   return (
     <div className="header bg-light shadow">
-      <nav className="navbar navbar-expand-lg navbar-light px-1 px-lg-5 container">
+      <nav className="navbar navbar-expand-lg navbar-light px-4 px-lg-5 container">
         <section className="navbar-flex navbar-brand logo d-flex justify-content-center align-items-center">
           <Link
             to="/"

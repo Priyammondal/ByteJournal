@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import api from "../../api";
+import parse from "html-react-parser";
 
 const ArticleDetails = () => {
   const [author, setAuthor] = useState({});
@@ -12,8 +13,10 @@ const ArticleDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { getArticleById, deleteArticle, checkLoginStatus } = api();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
+    setLoader(true);
     checkLoginStatus(params.articlename);
     fetchArticlesById();
   }, []);
@@ -23,6 +26,9 @@ const ArticleDetails = () => {
     if (articleByIdResponse.status === 200) {
       setArticle(articleByIdResponse.data.article);
       setAuthor(articleByIdResponse.data.user);
+      setTimeout(() => {
+        setLoader(false);
+      }, 2000);
     }
   };
 
@@ -33,10 +39,14 @@ const ArticleDetails = () => {
     }
   };
 
-  return (
-    <div className="article-details bg-info">
+  return loader ? (
+    <div className="bg-secondary vh-100 w-100 d-flex align-items-center justify-content-center">
+      <div className="loader"></div>
+    </div>
+  ) : (
+    <div className="article-details bg-secondary">
       <div className="createArticleMain container">
-        <div className="artilceForm w-100 p-5">
+        <div className="artilceForm p-3 px-lg-5 card my-5 mx-auto">
           <div className="mb-3">
             <h1 className="text-uppercase">{article.title}</h1>
             <div className="edit-delete d-flex justify-content-between align-items-center">
@@ -59,9 +69,8 @@ const ArticleDetails = () => {
               )}
             </div>
           </div>
-
-          <div className="mb-3">
-            <p>{article.content}</p>
+          <div className="mb-3 article-content">
+            {parse(String(article.content))}
           </div>
         </div>
       </div>

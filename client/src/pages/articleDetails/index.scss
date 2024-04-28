@@ -1,9 +1,21 @@
 .article-details {
-  height: 100vh;
+  min-height: 100vh !important;
   display: grid;
   place-items: center;
   .createArticleMain {
-    height: 90%;
-    background-color: #ccc;
+    min-height: 90%;
+    .artilceForm {
+      width: 90%;
+      .article-content {
+        text-align: justify;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .createArticleMain {
+      .artilceForm {
+        width: 95%;
+      }
+    }
   }
 }

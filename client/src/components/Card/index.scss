@@ -1,6 +1,6 @@
 .card {
-  width: 90%;
-  height: 250px !important;
+  width: 95%;
+  min-height: 250px !important;
   overflow: hidden;
 }
 
@@ -10,4 +10,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-align: left;
+}
+
+@media screen and (max-width: 992px) {
+  .card {
+    width: 100%;
+  }
 }

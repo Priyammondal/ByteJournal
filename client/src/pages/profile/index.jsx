@@ -7,8 +7,8 @@ const index = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
 
-  const userName = localStorage.getItem("name")
-  const userEmail = localStorage.getItem("email")
+  const userName = localStorage.getItem("name");
+  const userEmail = localStorage.getItem("email");
 
   const handleEditProfile = (e) => {
     e.preventDefault();
@@ -19,8 +19,8 @@ const index = () => {
   };
 
   return (
-    <div className="profile container mx-auto my-2 p-3 p-md-0">
-      <section className="edit-profile rounded py-4 px-3 px-lg-5 mt-5">
+    <div className="profile container mx-auto my-2 px-lg-5">
+      <section className="edit-profile rounded py-4 px-3 px-lg-4 mt-5">
         <span className="d-flex align-items-center justify-content-center gap-2 my-3">
           <h2 className="m-0">Edit Profile</h2>{" "}
           <FaUserEdit
@@ -44,7 +44,7 @@ const index = () => {
                 value={userName}
               />
             </div>
-            
+
             <div>
               <label htmlFor="email">Email Address</label>
               <input
@@ -55,7 +55,12 @@ const index = () => {
                 value={userEmail}
               />
             </div>
-            <button className="btn btn-success">Update</button>
+            <button
+              className="btn btn-success update-btn"
+              title="Feature Currently Not Available"
+            >
+              Update
+            </button>
           </form>
         ) : (
           <section className="profile-info d-flex flex-column gap-3 fw-bold fs-6">
@@ -63,7 +68,7 @@ const index = () => {
               <label htmlFor="">Full Name</label>
               <div>{userName}</div>
             </div>
-            
+
             <div>
               <label htmlFor="">Email Address</label>
               <div>{userEmail}</div>
@@ -71,7 +76,7 @@ const index = () => {
           </section>
         )}
       </section>
-      <section className="change-password rounded py-4 px-3 px-lg-5 mt-5">
+      <section className="change-password rounded py-4 px-3 px-lg-4 mt-4">
         <span className="d-flex align-items-center justify-content-center gap-2 my-3">
           <h2 className="m-0">Change Password</h2>{" "}
           <MdEdit
@@ -92,7 +97,7 @@ const index = () => {
                 id="currentPswd"
                 name="currentPswd"
                 type="password"
-                value={"******"}
+                placeholder="Enter current password"
               />
             </div>
             <div>
@@ -102,11 +107,21 @@ const index = () => {
                 id="newPswd"
                 name="newPswd"
                 type="password"
-                value={"******"}
+                placeholder="Enter new password"
               />
             </div>
-            <button className="btn btn-success">Update</button>
-            <p className="text-danger">Forgot Password?</p>
+            <button
+              className="btn btn-success update-btn"
+              title="Feature Currently Not Available"
+            >
+              Update
+            </button>
+            <p
+              className="text-danger update-btn"
+              title="Feature Currently Not Available"
+            >
+              Forgot Password?
+            </p>
           </form>
         ) : (
           <section className="password-info d-flex flex-column gap-3 fw-bold fs-6">

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./index.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../api";
+import JoditEditor from "jodit-react";
 
 const EditMyArticles = () => {
+  const editor = useRef(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
@@ -36,9 +38,12 @@ const EditMyArticles = () => {
   };
 
   return (
-    <div className="create_article bg-info">
+    <div className="create_article bg-secondary">
       <div className="createArticleMain container pt-5">
-        <form className="artilceForm w-100 p-5" onSubmit={handleSubmitArticle}>
+        <form
+          className="artilceForm w-100 p-lg-5 mb-5"
+          onSubmit={handleSubmitArticle}
+        >
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
               Title:
@@ -57,15 +62,25 @@ const EditMyArticles = () => {
             <label htmlFor="content" className="form-label">
               Content:
             </label>
-            <textarea
+            {/* <textarea
               className="form-control"
               id="content"
               rows="5"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-            ></textarea>
+            ></textarea> */}
+            <JoditEditor
+              ref={editor}
+              value={content}
+              onBlur={(newContent) => setContent(newContent)}
+              onChange={(newContent) => {
+                setContent(newContent);
+              }}
+            />
           </div>
-          <button className="btn btn-primary">Submit</button>
+          <div className="d-flex justify-content-center">
+            <button className="btn btn-success">Submit</button>
+          </div>
         </form>
       </div>
     </div>

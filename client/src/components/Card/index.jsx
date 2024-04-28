@@ -6,6 +6,7 @@ import { PiSmileySad, PiSmileySadFill } from "react-icons/pi";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { CgDetailsMore } from "react-icons/cg";
 import { useNavigate, useLocation } from "react-router-dom";
+import parse from "html-react-parser";
 import api from "../../api";
 
 const index = ({ user, article, edit, dlt }) => {
@@ -44,14 +45,14 @@ const index = ({ user, article, edit, dlt }) => {
   };
 
   return (
-    <div className="col-12 col-lg-6 col-xl-3 col-xxl-4 mb-5">
+    <div className="col-12 mb-2">
       <div className="card mx-auto">
         <div className="card-body d-flex flex-column justify-content-between">
-          <section>
+          <section className="w-100">
             <h5 className="card-title">{article?.title}</h5>
-            <p className="card-text">{article?.content}</p>
+            <p className="card-text">{parse(article?.content)}</p>
           </section>
-          <section className="d-flex justify-content-between">
+          <section className="d-flex justify-content-between w-100">
             <div className="d-flex gap-2 align-items-center">
               {userId && article.likedBy.includes(userId) ? (
                 <GoHeartFill

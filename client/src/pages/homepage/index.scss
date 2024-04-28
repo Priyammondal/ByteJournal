@@ -1,8 +1,13 @@
-.home{
-    min-height: 100vh;
-    section{
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
+.home {
+  min-height: 100vh;
+  section {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media screen and (max-width: 767px) {
+    section {
+      width: 95%;
     }
+  }
 }

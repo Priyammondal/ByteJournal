@@ -67,7 +67,7 @@ const api = () => {
   const getArticleById = async (id) => {
     try {
       const articleByIdResponse = await axios.get(
-        `https://byte-journal.vercel.app/getArticle/${id}`,
+        `${baseUrl}/getArticle/${id}`,
         {
           headers: {
             Authorization: `${tokenType} ${token}`,
