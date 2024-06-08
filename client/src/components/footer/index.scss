@@ -1,4 +1,17 @@
 .footer {
+  border-top: 1px solid #e3d7e6;
+  .scrollUp {
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10%;
+    right: 2%;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      scale: 0.9;
+    }
+  }
   p {
     margin: 0;
     padding: 0;

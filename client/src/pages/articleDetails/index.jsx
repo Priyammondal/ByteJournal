@@ -40,11 +40,11 @@ const ArticleDetails = () => {
   };
 
   return loader ? (
-    <div className="bg-secondary vh-100 w-100 d-flex align-items-center justify-content-center">
+    <div className="vh-100 w-100 d-flex align-items-center justify-content-center">
       <div className="loader"></div>
     </div>
   ) : (
-    <div className="article-details bg-secondary">
+    <div className="article-details">
       <div className="createArticleMain container">
         <div className="artilceForm p-3 px-lg-5 card my-5 mx-auto">
           <div className="mb-3">

@@ -38,10 +38,10 @@ const EditMyArticles = () => {
   };
 
   return (
-    <div className="create_article bg-secondary">
-      <div className="createArticleMain container pt-5">
+    <div className="create_article">
+      <div className="createArticleMain container py-5">
         <form
-          className="artilceForm w-100 p-lg-5 mb-5"
+          className="artilceForm w-100"
           onSubmit={handleSubmitArticle}
         >
           <div className="mb-3">

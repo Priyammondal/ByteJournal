@@ -3,5 +3,10 @@
   .createArticleMain {
     display: grid;
     place-items: center;
+    .artilceForm {
+      .jodit-wysiwyg {
+        min-height: 300px !important;
+      }
+    }
   }
 }

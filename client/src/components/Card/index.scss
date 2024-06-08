@@ -1,10 +1,10 @@
 .card {
-  width: 95%;
   min-height: 250px !important;
+  width: 100%;
   overflow: hidden;
 }
 
-.card p {
+.card .card-text {
   display: -webkit-box;
   -webkit-line-clamp: 5; /* Number of lines to show */
   -webkit-box-orient: vertical;
@@ -13,7 +13,10 @@
 }
 
 @media screen and (max-width: 992px) {
-  .card {
-    width: 100%;
+  .card .card-text {
+    img {
+      width: 100% !important;
+      object-fit: contain !important;
+    }
   }
 }

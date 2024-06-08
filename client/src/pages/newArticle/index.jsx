@@ -27,9 +27,12 @@ const NewArticle = () => {
   };
 
   return (
-    <div className="create_article bg-secondary">
-      <div className="createArticleMain container pt-5">
-        <form className="artilceForm w-100 p-lg-5" onSubmit={handleSubmitArticle}>
+    <div className="create_article">
+      <div className="createArticleMain container py-5">
+        <form
+          className="artilceForm w-100"
+          onSubmit={handleSubmitArticle}
+        >
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
               Title:
@@ -48,13 +51,7 @@ const NewArticle = () => {
             <label htmlFor="content" className="form-label">
               Content:
             </label>
-            {/* <textarea
-              className="form-control"
-              id="content"
-              rows="5"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea> */}
+
             <JoditEditor
               ref={editor}
               value={content}

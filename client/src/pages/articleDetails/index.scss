@@ -4,17 +4,22 @@
   place-items: center;
   .createArticleMain {
     min-height: 90%;
+    width: 100vw !important;
     .artilceForm {
-      width: 90%;
       .article-content {
         text-align: justify;
       }
     }
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 992px) {
     .createArticleMain {
       .artilceForm {
-        width: 95%;
+        .article-content {
+          img {
+            width: 100% !important;
+            object-fit: contain !important;
+          }
+        }
       }
     }
   }

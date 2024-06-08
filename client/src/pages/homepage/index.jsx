@@ -29,12 +29,18 @@ const Home = () => {
     } else navigate("/login");
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1000);
+  }, []);
+
   return loader ? (
-    <div className="bg-secondary vh-100 w-100 d-flex align-items-center justify-content-center">
+    <div className="home vh-100 w-100 d-flex align-items-center justify-content-center">
       <div className="loader"></div>
     </div>
   ) : (
-    <div className="home py-5 bg-secondary">
+    <div className="home py-5">
       <section className="d-flex flex-wrap container">
         {allData?.map((user, index) =>
           user.articles.map((article, articleIndex) => (

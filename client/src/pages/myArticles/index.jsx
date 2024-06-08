@@ -25,11 +25,11 @@ const MyArtilces = () => {
   };
 
   return loader ? (
-    <div className="bg-secondary vh-100 w-100 d-flex align-items-center justify-content-center">
+    <div className="vh-100 w-100 d-flex align-items-center justify-content-center">
       <div className="loader"></div>
     </div>
   ) : (
-    <div className="myarticles bg-secondary py-5">
+    <div className="myarticles py-5">
       <section className="d-flex flex-wrap container">
         {myArticles[0]?.articles.length === 0 ? (
           <h3 className="text-danger mx-auto">No Articles found!</h3>
