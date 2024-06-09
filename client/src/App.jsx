@@ -10,8 +10,18 @@ import Footer from "./components/footer";
 import NewArticle from "./pages/newArticle";
 import ArticleDetails from "./pages/articleDetails";
 import Profile from "./pages/profile";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "./redux/reducers";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("userData")) {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      dispatch(setUserInfo(userData));
+    }
+  }, []);
   const location = useLocation();
   const pathsWithoutHeaderFooter = ["/login", "/signup"];
   return (

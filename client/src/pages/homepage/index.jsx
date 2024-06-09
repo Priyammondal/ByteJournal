@@ -7,8 +7,8 @@ import Card from "../../components/Card";
 import api from "../../api";
 
 const Home = () => {
-  const [allData, setAllData] = useState([]);
   const dispatch = useDispatch();
+  const [allData, setAllData] = useState([]);
   const { getAllArticles } = api();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);

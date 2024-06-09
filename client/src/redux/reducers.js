@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   login: false,
   userArticleData: [],
+  userInfo: {},
 };
 
 export const globalSlice = createSlice({
@@ -15,8 +16,12 @@ export const globalSlice = createSlice({
     setUserArticleData: (state, action) => {
       state.userArticleData = action.payload;
     },
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
+    },
   },
 });
 
-export const { setLoginState, setUserArticleData } = globalSlice.actions;
+export const { setLoginState, setUserArticleData, setUserInfo } =
+  globalSlice.actions;
 export default globalSlice.reducer;

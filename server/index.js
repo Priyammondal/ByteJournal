@@ -92,6 +92,7 @@ app.get("/loginstatus", authMiddleWare, async (req, res) => {
   return res.status(200).json("user login session on");
 });
 
+// registration
 app.post(
   "/registration",
   checkEmailMiddleWare,
@@ -108,6 +109,7 @@ app.post(
     }
   }
 );
+// registration
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -300,6 +302,47 @@ app.post("/articles/like-dislike", authMiddleWare, async (req, res) => {
   } catch (error) {
     console.error("Error performing action on article:", error);
     return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/editProfile", authMiddleWare, async (req, res) => {
+  const { fullName, userName, userEmail } = req.body;
+  try {
+    const user = await Users.findOne({ email: userEmail }).select("-password");
+    if (!user) {
+      return res.status(200).json({ message: "User not found" });
+    }
+
+    const userNameExists = await Users.findOne({ username: userName });
+    if (userNameExists && userNameExists.email !== userEmail) {
+      return res.status(200).json({ message: "Username already taken" });
+    }
+
+    user.name = fullName;
+    user.username = userName;
+    await user.save();
+    res.status(200).json({ message: "Profile updated successfully", user });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+app.post("/editPassword", authMiddleWare, async (req, res) => {
+  const { userEmail, userCurrentPassword, userNewPassword } = req.body;
+  try {
+    const user = await Users.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(200).json({ message: "User not found" });
+    }
+    if (userCurrentPassword !== user.password) {
+      return res.status(200).json({ message: "Invalid current password" });
+    }
+    user.password = userNewPassword;
+    await user.save();
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

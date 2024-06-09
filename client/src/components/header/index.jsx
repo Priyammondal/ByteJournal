@@ -53,6 +53,7 @@ const index = () => {
       element.classList.remove("show");
     }
     dispatch(setLoginState(false));
+    localStorage.removeItem("userData");
     localStorage.removeItem("userId");
     localStorage.removeItem("name");
     localStorage.removeItem("username");
@@ -107,19 +108,13 @@ const index = () => {
                   </div>
                 </li>
 
-                {/* <li className="nav-item support me-auto">
-                  <div className="d-flex align-items-center gap-2">
-                    <IoNotificationsOutline size={20} />
-                  </div>
-                </li> */}
-
                 <li className="login" ref={loginRef}>
                   <Link
                     className="d-flex align-items-center gap-2"
                     onClick={() => setprofileExpand(true)}
                   >
                     <IoPersonCircle size={20} />
-                    Welcome, {localStorage.getItem("username")}
+                    Welcome, {globalState.userInfo.username}
                   </Link>
                   {profileExpand && (
                     <section className="profile-dropdown">

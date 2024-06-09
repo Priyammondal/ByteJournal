@@ -172,6 +172,46 @@ const api = () => {
       navigate("/login");
     }
   };
+
+  const editProfileDetails = async (data) => {
+    try {
+      const editProfileResponse = await axios.post(
+        `${baseUrl}/editProfile`,
+        {
+          ...data,
+        },
+        {
+          headers: {
+            Authorization: `${tokenType} ${token}`,
+          },
+        }
+      );
+      return editProfileResponse;
+    } catch (err) {
+      console.log("error edit profile -> ", err);
+      navigate("/login");
+    }
+  };
+
+  const editPassoword = async (data) => {
+    try {
+      const editPasswordRes = await axios.post(
+        `${baseUrl}/editPassword`,
+        {
+          ...data,
+        },
+        {
+          headers: {
+            Authorization: `${tokenType} ${token}`,
+          },
+        }
+      );
+      return editPasswordRes;
+    } catch (err) {
+      console.log("error edit profile -> ", err);
+      navigate("/login");
+    }
+  };
   return {
     checkLoginStatus,
     login,
@@ -183,6 +223,8 @@ const api = () => {
     editArticle,
     deleteArticle,
     articleLikeDislike,
+    editProfileDetails,
+    editPassoword,
   };
 };
 

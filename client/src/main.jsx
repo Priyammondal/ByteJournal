@@ -7,11 +7,13 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <Toaster position="top-right" reverseOrder={false} />
     </BrowserRouter>
   </Provider>
 );

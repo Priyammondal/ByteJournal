@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setLoginState } from "../../redux/reducers";
+import { setLoginState, setUserInfo } from "../../redux/reducers";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
 
@@ -32,6 +32,16 @@ const index = () => {
     const loginResponse = await login({ email, password });
 
     if (loginResponse.status === 200) {
+      const userData = {
+        userId: loginResponse.data.data[0]._id,
+        name: loginResponse.data.data[0].name,
+        username: loginResponse.data.data[0].username,
+        email: loginResponse.data.data[0].email,
+        token: loginResponse.data.token,
+        tokenType: loginResponse.data.type,
+      };
+      localStorage.setItem("userData", JSON.stringify(userData));
+      dispatch(setUserInfo(userData));
       localStorage.setItem("userId", loginResponse.data.data[0]._id);
       localStorage.setItem("name", loginResponse.data.data[0].name);
       localStorage.setItem("username", loginResponse.data.data[0].username);

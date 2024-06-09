@@ -8,6 +8,7 @@ import { CgDetailsMore } from "react-icons/cg";
 import { useNavigate, useLocation } from "react-router-dom";
 import parse from "html-react-parser";
 import api from "../../api";
+import toast from "react-hot-toast";
 
 const index = ({ user, article, edit, dlt }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const index = ({ user, article, edit, dlt }) => {
 
   const handleLikeDislike = async (articleId, action) => {
     if (user._id === userId) {
-      alert("You can't like/dislike your own article!");
+      toast.error("You can't like/dislike your own article!");
       return;
     } else {
       const likeDislikeResponse = await articleLikeDislike({
@@ -36,9 +37,12 @@ const index = ({ user, article, edit, dlt }) => {
         if (
           likeDislikeResponse.data.message === "Action performed successfully"
         ) {
-          window.location.reload();
+          toast.success(likeDislikeResponse.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
-          alert(likeDislikeResponse.data.message);
+          toast.error(likeDislikeResponse.data.message);
         }
       }
     }
